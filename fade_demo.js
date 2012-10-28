@@ -1,33 +1,42 @@
 function Fader(elements, fadeTimeout, animationTime, name) {
-  this.elements = elements;
-  this.fadeTimeout = fadeTimeout;
+  this.fadeTimeout   = fadeTimeout;
   this.animationTime = animationTime;
-  this.name = name;
-  this.initialized = false;
-  this.currentIndex = 0;
-  this.currentElement = elements[0];
-  this.stackSize = elements.length;
+  this.name          = name;
+  this.initialized   = false;
+
+  var currentIndex   = 0,
+      currentElement = elements[0];
+      stackSize      = elements.length;
+
+  this.incrementElementIndex = function() {
+    currentIndex += 1;
+    if (currentIndex >= stackSize) {
+      currentIndex = 0;
+    }
+    currentElement = elements[currentIndex];
+    return currentElement;
+  }
+
+  this.getCurrentElement = function() {
+    return currentElement;
+  }
 }
 
 Fader.prototype = (function() {
 
   function fadeToNext() {
-    var nextIndex = this.currentIndex + 1;
-    if (nextIndex >= this.stackSize) {
-      nextIndex = 0;
-    }
-    var nextElement = this.elements[nextIndex];
-    this.currentElement.style.zIndex = 2;
+    var currentElement = this.getCurrentElement(),
+        nextElement    = this.incrementElementIndex();
+    currentElement.style.zIndex = 2;
     nextElement.style.zIndex = 1;
     nextElement.style.display = 'block';
-    fade.call(this);
+    fade.call(this, currentElement);
     this.currentElement = nextElement;
-    this.currentIndex = nextIndex;
     queueNextFade.call(this);
   }
 
-  function fade() {
-    Effect.Fade(this.currentElement, this.animationTime);
+  function fade(element) {
+    Effect.Fade(element, this.animationTime);
   }
 
   function queueNextFade() {
