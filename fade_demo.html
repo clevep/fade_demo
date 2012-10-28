@@ -1,0 +1,56 @@
+<html>
+  <head>
+    <style type="text/css">
+      .wrapper {
+        position:relative;
+        width:300px;
+        height:200px;
+      }
+      .box {
+        position:absolute;
+        width:300px;
+        height:200px;
+        //-moz-transition:opacity 1s;
+        //-webkit-transition:opacity 1s;
+      }
+      .fadeImg {
+        position:absolute;
+      }
+      #blueDiv {
+        background-color:blue;
+      }
+      #redDiv {
+        background-color:red;
+      }
+      #greenDiv {
+        background-color:green;
+      }
+      #purpleDiv {
+        background-color:purple;
+      }
+    </style>
+    <script type="text/javascript" src="prototype-1.7.js"></script>
+    <script type="text/javascript" src="scriptaculous-1.9.0/effects.js"></script>
+    <script type="text/javascript" src="fade_demo.js"></script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div id="blueDiv" class="box"></div>
+      <div id="redDiv" style="display:none;" class="box"></div>
+      <div id="greenDiv" style="display:none;" class="box"></div>
+      <div id="purpleDiv" style="display:none;" class="box"></div>
+    </div>
+    <div class="wrapper">
+      <img src="m1.jpg" alt="" class="fadeImg" />
+      <img src="m2.jpg" style="display:none;" alt="" class="fadeImg" />
+      <img src="m3.jpg" style="display:none;" alt="" class="fadeImg" />
+      <img src="m4.jpg" style="display:none;" alt="" class="fadeImg" />
+    </div>
+    <input type="button" value="Fade" onclick="fade()" />
+    <script type="text/javascript">
+      var fader1 = new Fader($$('.box'), 2000, 200, 'colors').init();
+      var fader2 = new Fader($$('.fadeImg'), 2000, 200, 'imgs').init();
+    </script>
+  </body>
+
+</html>
